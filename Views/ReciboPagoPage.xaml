@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Eventia.Views.ReciboPagoPage"
+             BackgroundColor="#1A1A24"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False">
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" />
+    </Shell.BackButtonBehavior>
+
+    <Grid Padding="20">
+        <Border BackgroundColor="#252530" StrokeThickness="0" StrokeShape="RoundRectangle 25" VerticalOptions="Center" Margin="10,0">
+            <Grid>
+                <Image Source="https://images.unsplash.com/photo-1557672172-298e090bd0f1?w=600&amp;q=80" Aspect="AspectFill" Opacity="0.1" />
+
+                <VerticalStackLayout Padding="25" Spacing="12">
+
+                    <!-- Ícono dinámico que cambia de color y símbolo -->
+                    <Border WidthRequest="60" HeightRequest="60" BackgroundColor="{Binding ColorTema}" StrokeThickness="0" StrokeShape="RoundRectangle 30" HorizontalOptions="Center" Margin="0,5,0,0">
+                        <Label Text="{Binding IconoTema}" FontSize="35" TextColor="White" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" />
+                    </Border>
+
+                    <!-- Título dinámico -->
+                    <Label Text="{Binding TituloTema}" TextColor="White" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" />
+
+                    <!-- Monto con color dinámico -->
+                    <Label Text="{Binding Monto}" TextColor="{Binding ColorTema}" FontSize="36" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,0,0,10" />
+
+                    <BoxView HeightRequest="1" Color="#3E3E4A" Margin="0,0,0,10" />
+
+                    <Grid ColumnDefinitions="*, *" RowDefinitions="Auto, Auto, Auto, Auto, Auto" RowSpacing="15">
+                        <Label Grid.Row="0" Grid.Column="0" Text="De" TextColor="#8E8E93" FontSize="14" />
+                        <Label Grid.Row="0" Grid.Column="1" Text="sofia09" TextColor="White" FontSize="14" FontAttributes="Bold" HorizontalOptions="End" />
+
+                        <Label Grid.Row="1" Grid.Column="0" Text="Para evento" TextColor="#8E8E93" FontSize="14" />
+                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding EventoNombre}" TextColor="White" FontSize="14" FontAttributes="Bold" HorizontalOptions="End" LineBreakMode="TailTruncation" MaxLines="1" />
+
+                        <Label Grid.Row="2" Grid.Column="0" Text="Medio" TextColor="#8E8E93" FontSize="14" />
+                        <Label Grid.Row="2" Grid.Column="1" Text="{Binding MetodoPago}" TextColor="White" FontSize="14" FontAttributes="Bold" HorizontalOptions="End" />
+
+                        <Label Grid.Row="3" Grid.Column="0" Text="Fecha" TextColor="#8E8E93" FontSize="14" />
+                        <Label Grid.Row="3" Grid.Column="1" Text="{Binding FechaActual}" TextColor="White" FontSize="14" FontAttributes="Bold" HorizontalOptions="End" />
+
+                        <Label Grid.Row="4" Grid.Column="0" Text="Referencia" TextColor="#8E8E93" FontSize="14" />
+                        <Label Grid.Row="4" Grid.Column="1" Text="{Binding Referencia}" TextColor="White" FontSize="14" FontAttributes="Bold" HorizontalOptions="End" />
+                    </Grid>
+
+                    <VerticalStackLayout HorizontalOptions="Center" Margin="0,20,0,0" Spacing="8">
+                        <Border WidthRequest="200" HeightRequest="200" BackgroundColor="White" StrokeThickness="0" StrokeShape="RoundRectangle 16" Padding="12">
+                            <Border.Shadow>
+                                <Shadow Brush="Black" Offset="0,4" Opacity="0.3" />
+                            </Border.Shadow>
+                            <Image Source="{Binding QrImageUrl}" Aspect="AspectFit" />
+                        </Border>
+                        <!-- Instrucción del QR dinámica -->
+                        <Label Text="{Binding InstruccionQr}" TextColor="#8E8E93" FontSize="12" HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+            </Grid>
+        </Border>
+
+        <!-- Botón con color dinámico -->
+        <Button Text="Listo" BackgroundColor="{Binding ColorTema}" TextColor="White" FontSize="18" FontAttributes="Bold" CornerRadius="15" HeightRequest="55" VerticalOptions="End" Margin="0,0,0,10" Clicked="OnListoClicked" />
+    </Grid>
+
+</ContentPage>

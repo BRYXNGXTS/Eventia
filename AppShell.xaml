@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Eventia.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:Eventia.Views"
+    Shell.NavBarIsVisible="False"
+    Shell.FlyoutBehavior="Disabled"
+    NavigationPage.HasNavigationBar="False">
+
+    <!-- 1. Pantalla de Login (Ruta: profile) -->
+    <ShellItem FlyoutItemIsVisible="False">
+        <ShellContent Route="profile" ContentTemplate="{DataTemplate views:ProfilePage}" />
+    </ShellItem>
+
+    <!-- NUEVO: Pantalla de Registro (Ruta: registro) -->
+    <ShellItem FlyoutItemIsVisible="False">
+        <ShellContent Route="registro" ContentTemplate="{DataTemplate views:RegistroPage}" />
+    </ShellItem>
+
+    <!-- 2. Pantalla Principal (Ruta: home) -->
+    <ShellItem FlyoutItemIsVisible="False">
+        <ShellContent Route="home" ContentTemplate="{DataTemplate views:HomePage}" />
+    </ShellItem>
+
+    <!-- 3. Pantalla para Crear Eventos (Ruta: create) -->
+    <ShellItem FlyoutItemIsVisible="False">
+        <ShellContent Route="create" ContentTemplate="{DataTemplate views:CrearEventoPage}" />
+    </ShellItem>
+
+    <!-- 4. Pantalla del Perfil (Ruta: account) -->
+    <ShellItem FlyoutItemIsVisible="False">
+        <ShellContent Route="account" ContentTemplate="{DataTemplate views:CuentaPage}" />
+    </ShellItem>
+
+</Shell>

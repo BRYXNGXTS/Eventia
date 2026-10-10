@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Eventia.Views.CuentaPage"
+             BackgroundColor="#1A1A24"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False">
+
+    <Grid RowDefinitions="*, Auto" Margin="0">
+
+        <Image Grid.RowSpan="2" Source="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&amp;q=80" Aspect="AspectFill" Opacity="0.15" />
+
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout Padding="25" Spacing="20" Margin="0,10,0,40">
+
+                <!-- 1. Encabezado del Perfil con Tuerca de Configuración -->
+                <Grid>
+                    <!-- Tuerquita en la esquina superior derecha -->
+                    <Border StrokeThickness="0" BackgroundColor="Transparent" HorizontalOptions="End" VerticalOptions="Start" Margin="0,10,10,0">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnConfiguracionTapped" />
+                        </Border.GestureRecognizers>
+                        <Path Data="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.06-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.73,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.06,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.43-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.49-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z" Fill="#A0A0AA" Aspect="Uniform" WidthRequest="26" HeightRequest="26"/>
+                    </Border>
+                    <VerticalStackLayout Spacing="6" HorizontalOptions="Center" Margin="0,10,0,10">
+                        <Border WidthRequest="110" HeightRequest="110" StrokeThickness="0" StrokeShape="RoundRectangle 55" HorizontalOptions="Center" Shadow="{Shadow Brush=Black, Offset='0,5', Opacity=0.3}">
+                            <Image Source="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&amp;q=80" Aspect="AspectFill" />
+                        </Border>
+                        <Label Text="@sofia09" FontFamily="OpenSansSemibold" FontSize="26" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" Margin="0,8,0,0" CharacterSpacing="1"/>
+                        <Label Text="Sofía Maturana" FontFamily="OpenSansRegular" FontSize="16" TextColor="#A0A0AA" HorizontalOptions="Center" />
+                        <Label Text="📍 Cali, Colombia" FontFamily="OpenSansRegular" FontSize="13" TextColor="#8E8E93" HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </Grid>
+
+                <!-- 2. Estadísticas -->
+                <Border BackgroundColor="#E6252530" StrokeThickness="0" StrokeShape="RoundRectangle 15" Padding="15" Margin="0,10">
+                    <Grid ColumnDefinitions="*, *, *">
+                        <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center">
+                            <Label Text="{Binding TotalPendientes}" FontFamily="OpenSansSemibold" FontSize="26" FontAttributes="Bold" TextColor="#5E5CE6" HorizontalOptions="Center"/>
+                            <Label Text="Pendientes" FontFamily="OpenSansSemibold" FontSize="10" TextColor="#A0A0AA" TextTransform="Uppercase" CharacterSpacing="1" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center">
+                            <Label Text="{Binding TotalAsistidos}" FontFamily="OpenSansSemibold" FontSize="26" FontAttributes="Bold" TextColor="#5E5CE6" HorizontalOptions="Center"/>
+                            <Label Text="Asistidos" FontFamily="OpenSansSemibold" FontSize="10" TextColor="#A0A0AA" TextTransform="Uppercase" CharacterSpacing="1" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center">
+                            <Label Text="{Binding TotalEventos}" FontFamily="OpenSansSemibold" FontSize="26" FontAttributes="Bold" TextColor="#5E5CE6" HorizontalOptions="Center"/>
+                            <Label Text="Total" FontFamily="OpenSansSemibold" FontSize="10" TextColor="#A0A0AA" TextTransform="Uppercase" CharacterSpacing="1" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <!-- 3. Lista de Eventos -->
+                <Label Text="Historial de Eventos" FontFamily="OpenSansSemibold" FontSize="16" FontAttributes="Bold" TextColor="White" TextTransform="Uppercase" CharacterSpacing="1.5" Margin="0,10,0,5" />
+
+                <CollectionView x:Name="ListaMisEventos" ItemsSource="{Binding MisEventos}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border BackgroundColor="#E6252530" StrokeThickness="0" StrokeShape="RoundRectangle 15" Padding="12" Margin="0,0,0,15">
+                                <Grid ColumnDefinitions="80, *" ColumnSpacing="15">
+                                    <Border Grid.Column="0" StrokeThickness="0" StrokeShape="RoundRectangle 10" WidthRequest="80" HeightRequest="80" VerticalOptions="Start">
+                                        <Image Source="{Binding ImagenUrl}" Aspect="AspectFill" />
+                                    </Border>
+                                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="4">
+                                        <Label Text="{Binding Titulo}" FontFamily="OpenSansSemibold" FontSize="15" FontAttributes="Bold" TextColor="White" CharacterSpacing="0.5" LineBreakMode="TailTruncation" MaxLines="2" />
+                                        <Label Text="{Binding Fecha}" FontFamily="OpenSansRegular" FontSize="12" TextColor="#A0A0AA" />
+
+                                        <HorizontalStackLayout Spacing="8" Margin="0,5,0,0">
+                                            <Border BackgroundColor="#335E5CE6" StrokeThickness="0" StrokeShape="RoundRectangle 6" Padding="8,4">
+                                                <Label Text="{Binding Categoria}" TextColor="#A8A6FF" FontSize="10" FontAttributes="Bold" TextTransform="Uppercase" CharacterSpacing="0.5" />
+                                            </Border>
+
+                                            <Border BackgroundColor="{Binding ColorFondoEstado}" StrokeThickness="0" StrokeShape="RoundRectangle 6" Padding="8,4">
+                                                <Label Text="{Binding Estado}" TextColor="{Binding ColorTextoEstado}" FontSize="10" FontAttributes="Bold" TextTransform="Uppercase" CharacterSpacing="0.5" />
+                                            </Border>
+                                        </HorizontalStackLayout>
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!-- 4. BOTÓN CERRAR SESIÓN (Premium, al final de la página) -->
+                <Border BackgroundColor="#1AFF4D4D" StrokeThickness="1.5" Stroke="#FF4D4D" StrokeShape="RoundRectangle 15" HeightRequest="55" Margin="0,15,0,20">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnCambiarCuentaClicked" />
+                    </Border.GestureRecognizers>
+                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
+                        <Path Data="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z" 
+                              Fill="#FF4D4D" Aspect="Uniform" WidthRequest="22" HeightRequest="22" VerticalOptions="Center" Margin="0,0,0,2"/>
+                        <Label Text="CERRAR SESIÓN" TextColor="#FF4D4D" FontFamily="OpenSansSemibold" FontSize="15" FontAttributes="Bold" VerticalOptions="Center" CharacterSpacing="1" />
+                    </HorizontalStackLayout>
+                </Border>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Botón Flotante (FAB) -->
+        <Button Grid.Row="0" Text="+" FontFamily="OpenSansSemibold" FontSize="32" TextColor="White" BackgroundColor="#5E5CE6" CornerRadius="28" WidthRequest="56" HeightRequest="56" HorizontalOptions="End" VerticalOptions="End" Margin="0,0,20,20" Shadow="{Shadow Brush=Black, Offset='0,5', Opacity=0.4}" Clicked="OnCrearEventoClicked" />
+
+        <!-- Barra Inferior -->
+        <Border Grid.Row="1" BackgroundColor="#151520" StrokeThickness="0" StrokeShape="RoundRectangle 25,25,0,0" HeightRequest="65" Margin="0" Shadow="{Shadow Brush=Black, Offset='0,-5', Opacity=0.3}">
+            <Grid ColumnDefinitions="*,*,*,*">
+
+                <Grid Grid.Column="0" BackgroundColor="Transparent">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnTabTapped" CommandParameter="home" />
+                    </Grid.GestureRecognizers>
+                    <Path Data="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" Fill="#707080" Aspect="Uniform" WidthRequest="22" HeightRequest="22" HorizontalOptions="Center" VerticalOptions="Center"/>
+                </Grid>
+
+                <Grid Grid.Column="1" BackgroundColor="Transparent">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnTabTapped" CommandParameter="favorites" />
+                    </Grid.GestureRecognizers>
+                    <Path Data="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" Fill="#707080" Aspect="Uniform" WidthRequest="22" HeightRequest="22" HorizontalOptions="Center" VerticalOptions="Center"/>
+                </Grid>
+
+                <Grid Grid.Column="2" BackgroundColor="Transparent">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnTabTapped" CommandParameter="pending" />
+                    </Grid.GestureRecognizers>
+                    <Path Data="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z" Fill="#707080" Aspect="Uniform" WidthRequest="22" HeightRequest="22" HorizontalOptions="Center" VerticalOptions="Center"/>
+                </Grid>
+
+                <Grid Grid.Column="3" BackgroundColor="Transparent">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnTabTapped" CommandParameter="account" />
+                    </Grid.GestureRecognizers>
+                    <Path Data="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" Fill="#5E5CE6" Aspect="Uniform" WidthRequest="24" HeightRequest="24" HorizontalOptions="Center" VerticalOptions="Center" Margin="0,-5,0,0"/>
+                    <Ellipse Fill="#5E5CE6" WidthRequest="5" HeightRequest="5" HorizontalOptions="Center" VerticalOptions="End" Margin="0,0,0,10" />
+                </Grid>
+
+            </Grid>
+        </Border>
+
+    </Grid>
+</ContentPage>

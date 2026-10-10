@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Eventia.Views.CrearEventoPage"
+             BackgroundColor="#1A1A24"
+             Shell.NavBarIsVisible="False">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="25" Spacing="20" Margin="0,20,0,30">
+
+            <!-- Encabezado con Botón de Atrás -->
+            <Grid ColumnDefinitions="Auto, *">
+                <Button Grid.Column="0" Text="←" FontSize="24" FontAttributes="Bold" BackgroundColor="Transparent" TextColor="White" Padding="0" Clicked="OnVolverClicked" />
+                <Label Grid.Column="1" Text="Crear Nuevo Evento" FontSize="22" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" Margin="-30,0,0,0"/>
+            </Grid>
+
+            <Label Text="Detalles del Evento" TextColor="#5E5CE6" FontAttributes="Bold" Margin="0,15,0,0"/>
+
+            <Border BackgroundColor="#2D2D3A" StrokeThickness="0" StrokeShape="RoundRectangle 15" Padding="15,5">
+                <Entry x:Name="NombreEntry" Placeholder="Nombre del evento (Ej. Partido de Fútbol)" PlaceholderColor="#8E8E93" TextColor="White" />
+            </Border>
+
+            <!-- Fecha del Evento con Ícono Vectorial Premium (Adiós Emojis) -->
+            <Border BackgroundColor="#2D2D3A" StrokeThickness="0" StrokeShape="RoundRectangle 15" Padding="15,5">
+                <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                    <Path Data="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8 4H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z" 
+                          Fill="#5E5CE6" Aspect="Uniform" WidthRequest="22" HeightRequest="22" VerticalOptions="Center"/>
+                    <DatePicker x:Name="FechaPicker" Format="dd MMM yyyy" TextColor="White" BackgroundColor="Transparent" />
+                </HorizontalStackLayout>
+            </Border>
+
+            <Border BackgroundColor="#2D2D3A" StrokeThickness="0" StrokeShape="RoundRectangle 15" Padding="5">
+                <Picker x:Name="CategoriaPicker" Title="Selecciona la categoría" TitleColor="#8E8E93" TextColor="White" Margin="10,0">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Deportes y Recreación</x:String>
+                            <x:String>Fiestas Privadas</x:String>
+                            <x:String>Reuniones Sociales</x:String>
+                            <x:String>Educación y Talleres</x:String>
+                            <x:String>Arte y Cultura</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+            </Border>
+
+            <Border BackgroundColor="#2D2D3A" StrokeThickness="0" StrokeShape="RoundRectangle 15" Padding="5">
+                <Picker x:Name="DuracionPicker" Title="Selecciona la duración" TitleColor="#8E8E93" TextColor="White" Margin="10,0">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>1 a 3 horas</x:String>
+                            <x:String>Medio día (4-6 horas)</x:String>
+                            <x:String>Todo el día</x:String>
+                            <x:String>Fin de semana completo</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+            </Border>
+
+            <Border BackgroundColor="#2D2D3A" StrokeThickness="0" StrokeShape="RoundRectangle 15" Padding="5">
+                <Picker x:Name="CapacidadPicker" Title="Número máximo de asistentes" TitleColor="#8E8E93" TextColor="White" Margin="10,0">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>10</x:String>
+                            <x:String>20</x:String>
+                            <x:String>30</x:String>
+                            <x:String>40</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+            </Border>
+
+            <Border BackgroundColor="#2D2D3A" StrokeThickness="0" StrokeShape="RoundRectangle 15" Padding="15,5">
+                <Editor Placeholder="Descripción (Ej. Llevar ropa deportiva...)" PlaceholderColor="#8E8E93" TextColor="White" HeightRequest="80" AutoSize="TextChanges" />
+            </Border>
+
+            <Label Text="Ubicación y Distancia" TextColor="#5E5CE6" FontAttributes="Bold" Margin="0,15,0,0"/>
+
+            <Grid ColumnDefinitions="*, *" ColumnSpacing="15">
+                <Border Grid.Column="0" VerticalOptions="Start" BackgroundColor="#2D2D3A" StrokeThickness="0" StrokeShape="RoundRectangle 15" Padding="5,0">
+                    <Picker x:Name="CiudadPicker" Title="Ciudad" TitleColor="#8E8E93" TextColor="White" Margin="5,0">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Cali</x:String>
+                                <x:String>Bogotá</x:String>
+                                <x:String>Medellín</x:String>
+                                <x:String>Palmira</x:String>
+                                <x:String>Yumbo</x:String>
+                                <x:String>Jamundí</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                </Border>
+
+                <VerticalStackLayout Grid.Column="1" Spacing="5" VerticalOptions="Start">
+                    <Border BackgroundColor="#2D2D3A" StrokeThickness="0" StrokeShape="RoundRectangle 15" Padding="15,0">
+                        <Entry x:Name="BarrioEntry" Placeholder="Barrio" PlaceholderColor="#8E8E93" TextColor="White" TextChanged="OnBarrioTextChanged" />
+                    </Border>
+
+                    <Border x:Name="ContenedorSugerencias" BackgroundColor="#3A3A4C" StrokeThickness="0" StrokeShape="RoundRectangle 10" IsVisible="False" MaximumHeightRequest="130">
+                        <CollectionView x:Name="ListaSugerencias" SelectionMode="Single" SelectionChanged="OnBarrioSeleccionado">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <!-- ESTA LÍNEA ES LA QUE SOLUCIONA LOS 42 ERRORES -->
+                                    <HorizontalStackLayout Padding="10,8">
+                                        <Label Text="{Binding .}" TextColor="White" FontSize="14" VerticalOptions="Center" />
+                                    </HorizontalStackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </Border>
+                </VerticalStackLayout>
+            </Grid>
+
+            <Border BackgroundColor="#2D2D3A" StrokeThickness="0" StrokeShape="RoundRectangle 15" Padding="15,5">
+                <Entry x:Name="DireccionEntry" Placeholder="Dirección o Lugar (Ej. Estadio Pascual Guerrero)" PlaceholderColor="#8E8E93" TextColor="White" Unfocused="OnLugarUnfocused" />
+            </Border>
+
+            <Border x:Name="ContenedorImagenLugar" BackgroundColor="#252530" StrokeThickness="0" StrokeShape="RoundRectangle 15" HeightRequest="150" IsVisible="False">
+                <Image x:Name="ImagenLugar" Aspect="AspectFill" />
+            </Border>
+
+            <!-- CONTENEDOR INTELIGENTE DE DISTANCIA GPS -->
+            <Border BackgroundColor="#252530" StrokeThickness="0" StrokeShape="RoundRectangle 15" Padding="15">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Distancia desde tu ubicación actual" TextColor="#A0A0AA" FontSize="14" HorizontalOptions="Center"/>
+                    <ActivityIndicator x:Name="CargandoDistancia" IsRunning="False" IsVisible="False" Color="#5E5CE6" HorizontalOptions="Center" HeightRequest="25"/>
+                    <Label x:Name="LabelDistancia" Text="Escribe la dirección para calcular..." TextColor="White" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Button Text="Publicar Evento" BackgroundColor="#5E5CE6" TextColor="White" FontSize="18" FontAttributes="Bold" CornerRadius="15" HeightRequest="55" Margin="0,10,0,0" Clicked="OnPublicarClicked"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

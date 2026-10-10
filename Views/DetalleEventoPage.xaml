@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage BackgroundColor="#12121A" NavigationPage.HasNavigationBar="False" Shell.NavBarIsVisible="False" x:Class="Eventia.Views.DetalleEventoPage" xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False"/>
+    </Shell.BackButtonBehavior>
+
+    <Grid>
+        <Grid RowDefinitions="Auto, *, Auto">
+            <Grid Grid.Row="0" HeightRequest="300">
+                <Image Aspect="AspectFill" Source="{Binding ImagenUrl}"/>
+                <BoxView Color="#66000000" HeightRequest="90" VerticalOptions="Start"/>
+                <Button BackgroundColor="#4D000000" Clicked="OnVolverClicked" CornerRadius="22" FontAttributes="Bold" FontSize="24" HeightRequest="44" HorizontalOptions="Start" Margin="15,20,0,0" Padding="0" Text="←" TextColor="White" VerticalOptions="Start" WidthRequest="44"/>
+            </Grid>
+
+            <ScrollView Grid.Row="1" Margin="0,-25,0,0">
+                <Border BackgroundColor="#12121A" Padding="25" StrokeShape="RoundRectangle 25,25,0,0" StrokeThickness="0">
+                    <VerticalStackLayout Spacing="18">
+                        <Grid ColumnDefinitions="*, Auto">
+                            <Label CharacterSpacing="0.5" FontAttributes="Bold" FontSize="24" Grid.Column="0" LineBreakMode="WordWrap" Text="{Binding Titulo}" TextColor="White"/>
+                            <Label FontAttributes="Bold" FontSize="22" Grid.Column="1" Margin="10,0,0,0" Text="{Binding Precio}" TextColor="#5E5CE6" VerticalOptions="Start"/>
+                        </Grid>
+
+                        <Border BackgroundColor="#2A2A40" HorizontalOptions="Start" Margin="0,-5,0,0" Padding="10,5" StrokeShape="RoundRectangle 8" StrokeThickness="0">
+                            <Label CharacterSpacing="1" FontAttributes="Bold" FontSize="11" Text="{Binding Categoria}" TextColor="#7D7AFF" TextTransform="Uppercase"/>
+                        </Border>
+
+                        <VerticalStackLayout Margin="0,5,0,0" Spacing="12">
+                            <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                                <Path Aspect="Uniform" Data="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8 4H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z" Fill="#5E5CE6" HeightRequest="18" VerticalOptions="Center" WidthRequest="18"/>
+                                <Label FontSize="14" Text="{Binding Fecha}" TextColor="#A0A0AA" VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                                <Path Aspect="Uniform" Data="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" Fill="#5E5CE6" HeightRequest="18" VerticalOptions="Center" WidthRequest="18"/>
+                                <Label FontSize="14" Text="{Binding Ubicacion}" TextColor="#A0A0AA" VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+
+                        <Label CharacterSpacing="1.5" FontAttributes="Bold" FontSize="13" Margin="0,15,0,-5" Text="ACERCA DEL EVENTO" TextColor="White"/>
+                        <Label FontSize="14" LineHeight="1.6" Text="Únete a este increíble evento y vive una experiencia única. Aquí podrás conectar con personas apasionadas y disfrutar de las mejores actividades programadas para este día." TextColor="#8E8E93"/>
+
+                        <Label CharacterSpacing="1.5" FontAttributes="Bold" FontSize="13" Margin="0,15,0,0" Text="PERSONAS INSCRITAS" TextColor="White"/>
+                        <CollectionView ItemsSource="{Binding Asistentes}">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout ItemSpacing="12" Orientation="Horizontal"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <VerticalStackLayout HorizontalOptions="Center" Spacing="6">
+                                        <Border HeightRequest="56" Stroke="#2D2D3A" StrokeShape="RoundRectangle 28" StrokeThickness="2" WidthRequest="56">
+                                            <Image Aspect="AspectFill" Source="{Binding AvatarUrl}"/>
+                                        </Border>
+                                        <Label FontSize="12" HorizontalOptions="Center" Text="{Binding Nombre}" TextColor="#8E8E93"/>
+                                    </VerticalStackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </Border>
+            </ScrollView>
+
+            <Border BackgroundColor="#1E1E2A" Grid.Row="2" Padding="20,20,20,30" StrokeShape="RoundRectangle 25,25,0,0" StrokeThickness="0">
+                <Border.Shadow>
+                    <Shadow Brush="Black" Offset="0,-5" Opacity="0.2"/>
+                </Border.Shadow>
+                <VerticalStackLayout Spacing="12">
+
+                    <!-- BOTÓN INTELIGENTE: Bloquea si estás inscrito O si está pendiente -->
+                    <Button BackgroundColor="#5E5CE6" Clicked="OnRegistrarseClicked" CornerRadius="16" FontAttributes="Bold" FontSize="18" HeightRequest="56" Text="Registrarse y Pagar" TextColor="White">
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" Binding="{Binding EstaInscrito}" Value="True">
+                                <Setter Property="Text" Value="✓ Ya estás inscrito" />
+                                <Setter Property="BackgroundColor" Value="#28A745" />
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="Button" Binding="{Binding PagoPendiente}" Value="True">
+                                <Setter Property="Text" Value="⏳ Pago Pendiente" />
+                                <Setter Property="BackgroundColor" Value="#FFC107" />
+                                <Setter Property="TextColor" Value="#12121A" />
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+
+                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="6">
+                        <Path Aspect="Uniform" Data="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z" Fill="#8E8E93" HeightRequest="12" VerticalOptions="Center" WidthRequest="12"/>
+                        <Label FontSize="12" Text="Pagos seguros cifrados de extremo a extremo" TextColor="#8E8E93" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+
+        <!-- CAPA DEL MENÚ DE PAGOS (BOTTOM SHEET) -->
+        <Grid BackgroundColor="#B3000000" IsVisible="False" x:Name="MenuPagosOverlay">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnCerrarMenuPagosTapped"/>
+            </Grid.GestureRecognizers>
+
+            <Border BackgroundColor="#1E1E2A" Padding="25,20,25,40" StrokeShape="RoundRectangle 30,30,0,0" StrokeThickness="0" VerticalOptions="End">
+                <Grid>
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer/>
+                    </Grid.GestureRecognizers>
+
+                    <VerticalStackLayout Spacing="0">
+                        <BoxView Color="#3D3D4A" CornerRadius="2.5" HeightRequest="5" HorizontalOptions="Center" Margin="0,0,0,20" WidthRequest="40"/>
+
+                        <!-- VISTA 1: LISTA -->
+                        <VerticalStackLayout IsVisible="True" Spacing="15" x:Name="VistaListaMetodos">
+                            <Label FontAttributes="Bold" FontSize="20" Margin="0,0,0,10" Text="Método de pago" TextColor="White"/>
+
+                            <Border BackgroundColor="#2A2A40" Padding="15" StrokeShape="RoundRectangle 16" StrokeThickness="0">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer CommandParameter="Tarjeta" Tapped="OnMetodoPagoSeleccionado"/>
+                                </Border.GestureRecognizers>
+                                <Grid ColumnDefinitions="Auto, *, Auto">
+                                    <Border BackgroundColor="#1A1A24" Grid.Column="0" HeightRequest="44" StrokeShape="RoundRectangle 12" StrokeThickness="0" WidthRequest="44">
+                                        <Path Aspect="Uniform" Data="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z" Fill="#5E5CE6" HeightRequest="22" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="22"/>
+                                    </Border>
+                                    <VerticalStackLayout Grid.Column="1" Margin="15,0,0,0" VerticalOptions="Center">
+                                        <Label FontAttributes="Bold" FontSize="15" Text="Tarjeta de Crédito / Débito" TextColor="White"/>
+                                        <Label FontSize="12" Text="Visa, Mastercard, Amex" TextColor="#8E8E93"/>
+                                    </VerticalStackLayout>
+                                    <Label FontAttributes="Bold" FontSize="24" Grid.Column="2" Text="›" TextColor="#8E8E93" VerticalOptions="Center"/>
+                                </Grid>
+                            </Border>
+
+                            <Border BackgroundColor="#2A2A40" Padding="15" StrokeShape="RoundRectangle 16" StrokeThickness="0">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer CommandParameter="Transferencia" Tapped="OnMetodoPagoSeleccionado"/>
+                                </Border.GestureRecognizers>
+                                <Grid ColumnDefinitions="Auto, *, Auto">
+                                    <Border BackgroundColor="#1A1A24" Grid.Column="0" HeightRequest="44" StrokeShape="RoundRectangle 12" StrokeThickness="0" WidthRequest="44">
+                                        <Path Aspect="Uniform" Data="M12 3L1 9v2h22V9L12 3zm-6 10h2v7H6v-7zm6 0h2v7h-2v-7zm6 0h2v7h-2v-7zM2 22h20v2H2v-2z" Fill="#28A745" HeightRequest="22" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="22"/>
+                                    </Border>
+                                    <VerticalStackLayout Grid.Column="1" Margin="15,0,0,0" VerticalOptions="Center">
+                                        <Label FontAttributes="Bold" FontSize="15" Text="Transferencia Bancaria" TextColor="White"/>
+                                        <Label FontSize="12" Text="Bancolombia, Davivienda, PSE" TextColor="#8E8E93"/>
+                                    </VerticalStackLayout>
+                                    <Label FontAttributes="Bold" FontSize="24" Grid.Column="2" Text="›" TextColor="#8E8E93" VerticalOptions="Center"/>
+                                </Grid>
+                            </Border>
+
+                            <Border BackgroundColor="#2A2A40" Padding="15" StrokeShape="RoundRectangle 16" StrokeThickness="0">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer CommandParameter="Nequi" Tapped="OnMetodoPagoSeleccionado"/>
+                                </Border.GestureRecognizers>
+                                <Grid ColumnDefinitions="Auto, *, Auto">
+                                    <Border BackgroundColor="#1A1A24" Grid.Column="0" HeightRequest="44" StrokeShape="RoundRectangle 12" StrokeThickness="0" WidthRequest="44">
+                                        <Path Aspect="Uniform" Data="M17 1H7c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zm0 18H7V5h10v14z" Fill="#E83283" HeightRequest="22" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="22"/>
+                                    </Border>
+                                    <VerticalStackLayout Grid.Column="1" Margin="15,0,0,0" VerticalOptions="Center">
+                                        <Label FontAttributes="Bold" FontSize="15" Text="Billeteras Digitales" TextColor="White"/>
+                                        <Label FontSize="12" Text="Nequi, DaviPlata, Dale!" TextColor="#8E8E93"/>
+                                    </VerticalStackLayout>
+                                    <Label FontAttributes="Bold" FontSize="24" Grid.Column="2" Text="›" TextColor="#8E8E93" VerticalOptions="Center"/>
+                                </Grid>
+                            </Border>
+
+                            <Border BackgroundColor="#2A2A40" Padding="15" StrokeShape="RoundRectangle 16" StrokeThickness="0">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer CommandParameter="Efectivo" Tapped="OnMetodoPagoSeleccionado"/>
+                                </Border.GestureRecognizers>
+                                <Grid ColumnDefinitions="Auto, *, Auto">
+                                    <Border BackgroundColor="#1A1A24" Grid.Column="0" HeightRequest="44" StrokeShape="RoundRectangle 12" StrokeThickness="0" WidthRequest="44">
+                                        <Path Aspect="Uniform" Data="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.31-8.86c-1.77-.45-2.34-.94-2.34-1.67 0-.84.79-1.43 2.1-1.43 1.38 0 1.9.66 1.94 1.64h1.71c-.05-1.34-.87-2.57-2.49-2.97V5H10.9v1.69c-1.51.32-2.72 1.3-2.72 2.81 0 1.79 1.49 2.69 3.66 3.21 1.95.46 2.34 1.15 2.34 1.87 0 .53-.39 1.39-2.1 1.39-1.6 0-2.23-.72-2.32-1.64H8.04c.1 1.7 1.36 2.66 2.86 2.97V19h2.34v-1.67c1.52-.29 2.72-1.16 2.73-2.77-.01-2.2-1.9-2.96-3.66-3.42z" Fill="#FFC107" HeightRequest="22" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="22"/>
+                                    </Border>
+                                    <VerticalStackLayout Grid.Column="1" Margin="15,0,0,0" VerticalOptions="Center">
+                                        <Label FontAttributes="Bold" FontSize="15" Text="Pago en Efectivo" TextColor="White"/>
+                                        <Label FontSize="12" Text="Efecty, Baloto, Puntos físicos" TextColor="#8E8E93"/>
+                                    </VerticalStackLayout>
+                                    <Label FontAttributes="Bold" FontSize="24" Grid.Column="2" Text="›" TextColor="#8E8E93" VerticalOptions="Center"/>
+                                </Grid>
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <!-- VISTA 2: TARJETA -->
+                        <VerticalStackLayout IsVisible="False" Spacing="20" x:Name="VistaFormularioTarjeta">
+                            <Grid ColumnDefinitions="Auto, *">
+                                <Label FontAttributes="Bold" FontSize="22" Grid.Column="0" Text="←" TextColor="#A0A0AA" VerticalOptions="Center">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnVolverAListaTapped"/>
+                                    </Label.GestureRecognizers>
+                                </Label>
+                                <Label FontAttributes="Bold" FontSize="18" Grid.Column="1" HorizontalOptions="Center" Margin="-22,0,0,0" Text="Pago con Tarjeta" TextColor="White"/>
+                            </Grid>
+
+                            <Border BackgroundColor="#5E5CE6" HeightRequest="180" Padding="20" StrokeShape="RoundRectangle 16" StrokeThickness="0">
+                                <Grid RowDefinitions="Auto, *, Auto">
+                                    <Label FontAttributes="Bold" FontSize="16" Grid.Row="0" Text="Eventia Pay" TextColor="#E6E6FA"/>
+                                    <Label FontAttributes="Bold, Italic" FontSize="20" Grid.Row="0" HorizontalOptions="End" Text="VISA" TextColor="White"/>
+                                    <Label CharacterSpacing="2" FontAttributes="Bold" FontSize="24" Grid.Row="1" Text="**** **** **** 4242" TextColor="White" VerticalOptions="Center"/>
+                                    <Grid ColumnDefinitions="*, Auto" Grid.Row="2">
+                                        <VerticalStackLayout Grid.Column="0">
+                                            <Label FontSize="10" Text="TITULAR" TextColor="#C7C7CC"/>
+                                            <Label FontAttributes="Bold" FontSize="14" Text="Juan Pérez" TextColor="White"/>
+                                        </VerticalStackLayout>
+                                        <VerticalStackLayout Grid.Column="1">
+                                            <Label FontSize="10" Text="VENCE" TextColor="#C7C7CC"/>
+                                            <Label FontAttributes="Bold" FontSize="14" Text="12/28" TextColor="White"/>
+                                        </VerticalStackLayout>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+
+                            <Button BackgroundColor="#5E5CE6" Clicked="OnConfirmarPagoClicked" CornerRadius="12" FontAttributes="Bold" FontSize="16" HeightRequest="50" Text="{Binding Precio, StringFormat='Pagar {0}'}" TextColor="White"/>
+                        </VerticalStackLayout>
+
+                        <!-- VISTA 3: NEQUI -->
+                        <VerticalStackLayout IsVisible="False" Spacing="20" x:Name="VistaFormularioNequi">
+                            <Grid ColumnDefinitions="Auto, *">
+                                <Label FontAttributes="Bold" FontSize="22" Grid.Column="0" Text="←" TextColor="#A0A0AA" VerticalOptions="Center">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnVolverAListaTapped"/>
+                                    </Label.GestureRecognizers>
+                                </Label>
+                                <Label FontAttributes="Bold" FontSize="18" Grid.Column="1" HorizontalOptions="Center" Margin="-22,0,0,0" Text="Billetera Digital" TextColor="White"/>
+                            </Grid>
+
+                            <Label FontSize="14" HorizontalTextAlignment="Center" Text="Ingresa el número de celular asociado a tu cuenta de Nequi o DaviPlata para generar el cobro." TextColor="#8E8E93"/>
+
+                            <VerticalStackLayout Spacing="6">
+                                <Border BackgroundColor="#2A2A40" Padding="15,5" Stroke="#3D3D4A" StrokeShape="RoundRectangle 12" StrokeThickness="1" x:Name="NequiPhoneBorder">
+                                    <Entry BackgroundColor="Transparent" FontSize="16" Keyboard="Telephone" Placeholder="Número de celular (Ej. 300 123 4567)" PlaceholderColor="#6C6C77" TextChanged="OnNequiPhoneTextChanged" TextColor="White" x:Name="NequiPhoneEntry"/>
+                                </Border>
+                                <Label FontSize="12" IsVisible="False" Margin="5,0,0,0" Text="Debes ingresar un número válido (mín. 10 dígitos)" TextColor="#FF3300" x:Name="NequiErrorLabel"/>
+                            </VerticalStackLayout>
+
+                            <Button BackgroundColor="#E83283" Clicked="OnConfirmarPagoClicked" CornerRadius="12" FontAttributes="Bold" FontSize="16" HeightRequest="50" Text="{Binding Precio, StringFormat='Pagar {0}'}" TextColor="White"/>
+                        </VerticalStackLayout>
+
+                        <!-- VISTA 4: EFECTIVO / TRANSFERENCIA -->
+                        <VerticalStackLayout IsVisible="False" Spacing="20" x:Name="VistaFormularioEfectivo">
+                            <Grid ColumnDefinitions="Auto, *">
+                                <Label FontAttributes="Bold" FontSize="22" Grid.Column="0" Text="←" TextColor="#A0A0AA" VerticalOptions="Center">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnVolverAListaTapped"/>
+                                    </Label.GestureRecognizers>
+                                </Label>
+                                <Label FontAttributes="Bold" FontSize="18" Grid.Column="1" HorizontalOptions="Center" Margin="-22,0,0,0" Text="Generar Referencia" TextColor="White"/>
+                            </Grid>
+
+                            <Path Aspect="Uniform" Data="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" Fill="#8E8E93" HeightRequest="40" HorizontalOptions="Center" Margin="0,10,0,0" WidthRequest="40"/>
+
+                            <Label FontSize="14" HorizontalTextAlignment="Center" Text="Al continuar, generaremos un código único (Voucher) y un código QR." TextColor="#8E8E93"/>
+                            <Label FontSize="14" HorizontalTextAlignment="Center" Margin="0,-10,0,10" Text="Podrás utilizarlo para pagar desde tu App Bancaria o presentarlo en un punto físico autorizado." TextColor="#8E8E93"/>
+
+                            <Button BackgroundColor="#28A745" Clicked="OnConfirmarPagoClicked" CornerRadius="12" FontAttributes="Bold" FontSize="16" HeightRequest="50" Text="Generar Voucher de Pago" TextColor="White"/>
+                        </VerticalStackLayout>
+
+                    </VerticalStackLayout>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+
+</ContentPage>

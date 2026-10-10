@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Eventia.Views.RegistroPage"
+             BackgroundColor="#12121A"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False">
+
+    <Grid>
+        <!-- FONDO SEGURO: Mismo formato del Login -->
+        <Image Source="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=800&amp;q=80" Aspect="AspectFill" Opacity="0.25" />
+
+        <ScrollView>
+            <VerticalStackLayout Padding="30" Spacing="20" VerticalOptions="CenterAndExpand" Margin="0,20,0,0">
+
+                <VerticalStackLayout Spacing="10" HorizontalOptions="Center" Margin="0,0,0,15">
+                    <Label Text="Crear Cuenta" TextColor="White" FontSize="28" FontAttributes="Bold" CharacterSpacing="2" HorizontalOptions="Center" />
+                    <Label Text="Únete a Eventia para continuar" TextColor="#A0A0AA" FontSize="14" HorizontalOptions="Center" />
+                </VerticalStackLayout>
+
+                <!-- Campo de Nombre -->
+                <Border BackgroundColor="#1A1A24" Stroke="#2D2D3A" StrokeThickness="1.5" StrokeShape="RoundRectangle 18" Padding="15,5">
+                    <Grid ColumnDefinitions="Auto, *">
+                        <Path Grid.Column="0" Data="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" 
+                              Fill="#8E8E93" Aspect="Uniform" WidthRequest="20" HeightRequest="20" VerticalOptions="Center" Margin="0,0,10,0"/>
+                        <Entry x:Name="NombreEntry" Grid.Column="1" Placeholder="Nombre completo" PlaceholderColor="#8E8E93" TextColor="White" />
+                    </Grid>
+                </Border>
+
+                <!-- Campo de Usuario -->
+                <Border BackgroundColor="#1A1A24" Stroke="#2D2D3A" StrokeThickness="1.5" StrokeShape="RoundRectangle 18" Padding="15,5">
+                    <Grid ColumnDefinitions="Auto, *">
+                        <Path Grid.Column="0" Data="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" 
+                              Fill="#8E8E93" Aspect="Uniform" WidthRequest="20" HeightRequest="20" VerticalOptions="Center" Margin="0,0,10,0"/>
+                        <Entry x:Name="UsuarioEntry" Grid.Column="1" Placeholder="Nuevo usuario (Ej. profe_2026)" PlaceholderColor="#8E8E93" TextColor="White" />
+                    </Grid>
+                </Border>
+
+                <!-- Campo de Contraseña -->
+                <Border BackgroundColor="#1A1A24" Stroke="#2D2D3A" StrokeThickness="1.5" StrokeShape="RoundRectangle 18" Padding="15,5">
+                    <Grid ColumnDefinitions="Auto, *">
+                        <Path Grid.Column="0" Data="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z" 
+                              Fill="#8E8E93" Aspect="Uniform" WidthRequest="20" HeightRequest="20" VerticalOptions="Center" Margin="0,0,10,0"/>
+                        <Entry x:Name="PasswordEntry" Grid.Column="1" Placeholder="Contraseña" IsPassword="True" PlaceholderColor="#8E8E93" TextColor="White" />
+                    </Grid>
+                </Border>
+
+                <Button x:Name="BtnRegistrar" Text="Registrarse" BackgroundColor="#5E5CE6" TextColor="White" FontSize="18" FontAttributes="Bold" CornerRadius="18" HeightRequest="60" Margin="0,15,0,0" Clicked="OnRegistrarseClicked">
+                    <Button.Shadow>
+                        <Shadow Brush="#5E5CE6" Offset="0,5" Opacity="0.3" />
+                    </Button.Shadow>
+                </Button>
+
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="5" Margin="0,15,0,0">
+                    <Label Text="¿Ya tienes cuenta?" TextColor="#8E8E93" FontSize="14" />
+                    <Label Text="Inicia sesión" TextColor="#5E5CE6" FontSize="14" FontAttributes="Bold">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnVolverLoginTapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </HorizontalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

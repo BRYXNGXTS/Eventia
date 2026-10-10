@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Eventia.Views.ConfiguracionPage"
+             BackgroundColor="#12121A"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False">
+
+    <Grid RowDefinitions="Auto, *">
+        <!-- Encabezado con Botón de Retroceso -->
+        <Grid Grid.Row="0" Padding="20,20,20,10" ColumnDefinitions="Auto, *">
+            <Border BackgroundColor="#1E1E2A" StrokeThickness="0" StrokeShape="Ellipse" WidthRequest="40" HeightRequest="40" HorizontalOptions="Start">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnVolverTapped" />
+                </Border.GestureRecognizers>
+                <Path Data="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z" Fill="White" Aspect="Uniform" WidthRequest="20" HeightRequest="20" HorizontalOptions="Center" VerticalOptions="Center"/>
+            </Border>
+            <Label Grid.Column="1" Text="CONFIGURACIÓN" FontFamily="PoppinsBold" FontSize="16" TextColor="White" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center" Margin="-40,0,0,0"/>
+        </Grid>
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="20" Spacing="25">
+
+                <!-- Sección Datos Personales (Actualizada) -->
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="DATOS PERSONALES" FontFamily="PoppinsBold" FontSize="12" TextColor="#7D7AFF" CharacterSpacing="1"/>
+
+                    <Border BackgroundColor="#1E1E2A" Stroke="#2D2D3A" StrokeThickness="1" StrokeShape="RoundRectangle 16" Padding="20,15">
+                        <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="Auto, *" RowSpacing="15">
+
+                            <!-- Nombre de Usuario -->
+                            <Path Grid.Row="0" Grid.Column="0" Data="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" Fill="#A0A0AA" Aspect="Uniform" WidthRequest="20" HeightRequest="20" VerticalOptions="Center" Margin="0,0,15,0"/>
+                            <VerticalStackLayout Grid.Row="0" Grid.Column="1" Spacing="2">
+                                <Label Text="Nombre de usuario" FontSize="11" TextColor="#A0A0AA"/>
+                                <Label Text="@sofia09" FontSize="14" TextColor="White" FontFamily="PoppinsBold"/>
+                            </VerticalStackLayout>
+
+                            <!-- Nombre Completo -->
+                            <Path Grid.Row="1" Grid.Column="0" Data="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z" Fill="#A0A0AA" Aspect="Uniform" WidthRequest="20" HeightRequest="20" VerticalOptions="Center" Margin="0,0,15,0"/>
+                            <VerticalStackLayout Grid.Row="1" Grid.Column="1" Spacing="2">
+                                <Label Text="Nombre completo" FontSize="11" TextColor="#A0A0AA"/>
+                                <Label Text="Sofía Maturana" FontSize="14" TextColor="White" FontFamily="PoppinsBold"/>
+                            </VerticalStackLayout>
+
+                            <!-- Dirección -->
+                            <Path Grid.Row="2" Grid.Column="0" Data="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" Fill="#A0A0AA" Aspect="Uniform" WidthRequest="20" HeightRequest="20" VerticalOptions="Center" Margin="0,0,15,0"/>
+                            <VerticalStackLayout Grid.Row="2" Grid.Column="1" Spacing="2">
+                                <Label Text="Ubicación" FontSize="11" TextColor="#A0A0AA"/>
+                                <Label Text="Cali, Colombia" FontSize="14" TextColor="White" FontFamily="PoppinsBold"/>
+                            </VerticalStackLayout>
+
+                        </Grid>
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- Sección Preferencias -->
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="PREFERENCIAS DE LA APP" FontFamily="PoppinsBold" FontSize="12" TextColor="#7D7AFF" CharacterSpacing="1"/>
+
+                    <Border BackgroundColor="#1E1E2A" Stroke="#2D2D3A" StrokeThickness="1" StrokeShape="RoundRectangle 16" Padding="20,10">
+                        <VerticalStackLayout Spacing="15">
+                            <Grid ColumnDefinitions="*, Auto">
+                                <Label Grid.Column="0" Text="Notificaciones Push" TextColor="White" FontSize="14" VerticalOptions="Center" FontFamily="PoppinsBold"/>
+                                <Switch Grid.Column="1" IsToggled="True" OnColor="#5E5CE6" ThumbColor="White"/>
+                            </Grid>
+                            <BoxView HeightRequest="1" Color="#2D2D3A" />
+                            <Grid ColumnDefinitions="*, Auto">
+                                <Label Grid.Column="0" Text="Servicios de Ubicación" TextColor="White" FontSize="14" VerticalOptions="Center" FontFamily="PoppinsBold"/>
+                                <Switch Grid.Column="1" IsToggled="True" OnColor="#5E5CE6" ThumbColor="White"/>
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- Acciones -->
+                <VerticalStackLayout Spacing="10" Margin="0,10,0,40">
+                    <Button Text="Editar Perfil" BackgroundColor="#2A2A40" TextColor="White" CornerRadius="12" HeightRequest="50" FontFamily="PoppinsBold" Clicked="OnAccionTapped"/>
+                    <Button Text="Cambiar Contraseña" BackgroundColor="#2A2A40" TextColor="White" CornerRadius="12" HeightRequest="50" FontFamily="PoppinsBold" Clicked="OnAccionTapped"/>
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

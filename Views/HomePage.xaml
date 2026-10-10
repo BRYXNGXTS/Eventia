@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Eventia.Views.HomePage"
+             BackgroundColor="#12121A"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False">
+
+    <Grid RowDefinitions="*, Auto" Margin="0">
+
+        <Image Grid.RowSpan="2" Source="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&amp;q=80&amp;v=1" Aspect="AspectFill" Opacity="0.25" />
+
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout Padding="20" Spacing="15" Margin="0,15,0,0">
+
+                <HorizontalStackLayout Spacing="15" Margin="0,0,0,5" VerticalOptions="Center">
+                    <Border BackgroundColor="#5E5CE6" WidthRequest="46" HeightRequest="46" StrokeThickness="0" StrokeShape="RoundRectangle 14">
+                        <Border.Shadow>
+                            <Shadow Brush="#5E5CE6" Offset="0,4" Opacity="0.4" />
+                        </Border.Shadow>
+                        <Path Data="M22 10V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v4c1.1 0 2 .9 2 2s-.9 2-2 2v4c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-4c-1.1 0-2-.9-2-2s.9-2 2-2zM11 15H9v-2h2v2zm0-4H9V9h2v2zm4 4h-2v-2h2v2zm0-4h-2V9h2v2z" 
+                              Fill="White" Aspect="Uniform" WidthRequest="22" HeightRequest="22" HorizontalOptions="Center" VerticalOptions="Center" />
+                    </Border>
+                    <VerticalStackLayout VerticalOptions="Center" Spacing="-2">
+                        <Label Text="¡Bienvenida, sofia09!" TextColor="#A0A0AA" FontSize="13" />
+                        <Label Text="EVENTIA" FontFamily="PoppinsBold" TextColor="White" FontSize="22" FontAttributes="Bold" CharacterSpacing="2.5" />
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+
+                <Border BackgroundColor="#1E1E2A" StrokeThickness="1" Stroke="#2D2D3A" StrokeShape="RoundRectangle 20" Padding="15,2">
+                    <Grid ColumnDefinitions="Auto, *">
+                        <Path Grid.Column="0" Data="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" Fill="#8E8E93" Aspect="Uniform" WidthRequest="18" HeightRequest="18" VerticalOptions="Center" Margin="0,0,12,0" />
+                        <Entry Grid.Column="1" Text="{Binding TextoBusqueda}" Placeholder="Buscar eventos, lugares o artistas..." FontFamily="PoppinsRegular" FontSize="14" TextColor="White" PlaceholderColor="#8E8E93" BackgroundColor="Transparent" VerticalOptions="Center" />
+                    </Grid>
+                </Border>
+
+                <!-- AQUÍ ESTÁ LA SOLUCIÓN: Los botones ya tienen x:Name y Clicked -->
+                <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never" Margin="0,0,0,5">
+                    <HorizontalStackLayout Spacing="10">
+                        <Button x:Name="BtnFiltroTodos" Text="Todos" Command="{Binding FiltrarCommand}" CommandParameter="Todos" Clicked="OnFiltroClicked" BackgroundColor="#5E5CE6" TextColor="White" CornerRadius="16" HeightRequest="32" Padding="15,0" FontFamily="PoppinsBold" FontSize="12" />
+                        <Button x:Name="BtnFiltroMusica" Text="Música" Command="{Binding FiltrarCommand}" CommandParameter="Música" Clicked="OnFiltroClicked" BackgroundColor="#2A2A40" TextColor="#A0A0AA" CornerRadius="16" HeightRequest="32" Padding="15,0" FontFamily="PoppinsBold" FontSize="12" />
+                        <Button x:Name="BtnFiltroGratis" Text="Gratis" Command="{Binding FiltrarCommand}" CommandParameter="Gratis" Clicked="OnFiltroClicked" BackgroundColor="#2A2A40" TextColor="#A0A0AA" CornerRadius="16" HeightRequest="32" Padding="15,0" FontFamily="PoppinsBold" FontSize="12" />
+                        <Button x:Name="BtnFiltroCercanos" Text="Cercanos" Command="{Binding FiltrarCommand}" CommandParameter="Cercanos" Clicked="OnFiltroClicked" BackgroundColor="#2A2A40" TextColor="#A0A0AA" CornerRadius="16" HeightRequest="32" Padding="15,0" FontFamily="PoppinsBold" FontSize="12" />
+                        <Button x:Name="BtnFiltroCortos" Text="Cortos" Command="{Binding FiltrarCommand}" CommandParameter="Cortos" Clicked="OnFiltroClicked" BackgroundColor="#2A2A40" TextColor="#A0A0AA" CornerRadius="16" HeightRequest="32" Padding="15,0" FontFamily="PoppinsBold" FontSize="12" />
+                    </HorizontalStackLayout>
+                </ScrollView>
+
+                <HorizontalStackLayout Spacing="8" Margin="0,5,0,0" VerticalOptions="Center">
+                    <Ellipse Fill="#5E5CE6" WidthRequest="8" HeightRequest="8" VerticalOptions="Center" />
+                    <Label x:Name="TituloSeccion" Text="EVENTOS POPULARES" FontFamily="PoppinsBold" FontSize="13" FontAttributes="Bold" TextColor="White" CharacterSpacing="1.5" VerticalOptions="Center" />
+                </HorizontalStackLayout>
+
+                <CollectionView x:Name="ListaEventos" ItemsSource="{Binding EventosPopulares}" Margin="0,0,0,20">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="15" VerticalItemSpacing="15" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border BackgroundColor="#1A1A24" Stroke="#2D2D3A" StrokeThickness="1" StrokeShape="RoundRectangle 18">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnEventoTapped" CommandParameter="{Binding .}" />
+                                </Border.GestureRecognizers>
+                                <Grid RowDefinitions="120, Auto">
+                                    <Image Grid.Row="0" Source="{Binding ImagenUrl}" Aspect="AspectFill" />
+
+                                    <Border Grid.Row="0" BackgroundColor="#28A745" StrokeThickness="0" StrokeShape="RoundRectangle 8" HorizontalOptions="Start" VerticalOptions="Start" Margin="10" Padding="8,4" IsVisible="{Binding EstaInscrito}">
+                                        <HorizontalStackLayout Spacing="4" VerticalOptions="Center">
+                                            <Path Data="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" Fill="White" Aspect="Uniform" WidthRequest="10" HeightRequest="10" VerticalOptions="Center" />
+                                            <Label Text="INSCRITO" FontFamily="PoppinsBold" TextColor="White" FontSize="9" FontAttributes="Bold" VerticalOptions="Center" />
+                                        </HorizontalStackLayout>
+                                    </Border>
+
+                                    <Border Grid.Row="0" BackgroundColor="#FFC107" StrokeThickness="0" StrokeShape="RoundRectangle 8" HorizontalOptions="Start" VerticalOptions="Start" Margin="10" Padding="8,4" IsVisible="{Binding PagoPendiente}">
+                                        <HorizontalStackLayout Spacing="4" VerticalOptions="Center">
+                                            <Label Text="⏳" TextColor="#12121A" FontSize="9" FontAttributes="Bold" VerticalOptions="Center" />
+                                            <Label Text="PENDIENTE" FontFamily="PoppinsBold" TextColor="#12121A" FontSize="9" FontAttributes="Bold" VerticalOptions="Center" />
+                                        </HorizontalStackLayout>
+                                    </Border>
+
+                                    <Border Grid.Row="0" BackgroundColor="#B312121A" StrokeThickness="0" StrokeShape="Ellipse" WidthRequest="34" HeightRequest="34" HorizontalOptions="End" VerticalOptions="Start" Margin="10">
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer CommandParameter="{Binding .}" Tapped="OnCambiarImagenTapped" />
+                                        </Border.GestureRecognizers>
+                                        <Path Data="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" Aspect="Uniform" WidthRequest="16" HeightRequest="16" HorizontalOptions="Center" VerticalOptions="Center">
+                                            <Path.Style>
+                                                <Style TargetType="Path">
+                                                    <Setter Property="Fill" Value="White" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger TargetType="Path" Binding="{Binding EsFavorito}" Value="True">
+                                                            <Setter Property="Fill" Value="#FFC107" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Path.Style>
+                                        </Path>
+                                    </Border>
+
+                                    <StackLayout Grid.Row="1" Padding="15">
+                                        <Label Text="{Binding Titulo}" FontFamily="PoppinsBold" FontSize="15" FontAttributes="Bold" TextColor="White" CharacterSpacing="0.5" LineBreakMode="TailTruncation" MaxLines="1" Margin="0,0,0,5" />
+                                        <Label Text="{Binding Fecha}" FontFamily="PoppinsBold" FontSize="12" TextColor="#5E5CE6" FontAttributes="Bold" Margin="0,0,0,5" />
+                                        <VerticalStackLayout Spacing="6" Margin="0,5,0,12">
+                                            <HorizontalStackLayout Spacing="6" VerticalOptions="Center">
+                                                <Path Data="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" Fill="#A0A0AA" Aspect="Uniform" WidthRequest="12" HeightRequest="12" VerticalOptions="Center" />
+                                                <Label Text="{Binding Ubicacion}" FontFamily="PoppinsRegular" FontSize="11" TextColor="#A0A0AA" VerticalOptions="Center" />
+                                            </HorizontalStackLayout>
+                                            <HorizontalStackLayout Spacing="15" VerticalOptions="Center">
+                                                <HorizontalStackLayout Spacing="6" VerticalOptions="Center">
+                                                    <Path Data="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z" Fill="#A0A0AA" Aspect="Uniform" WidthRequest="12" HeightRequest="12" VerticalOptions="Center" />
+                                                    <Label Text="{Binding Duracion}" FontFamily="PoppinsRegular" FontSize="11" TextColor="#A0A0AA" VerticalOptions="Center" />
+                                                </HorizontalStackLayout>
+                                                <HorizontalStackLayout Spacing="6" VerticalOptions="Center">
+                                                    <Path Data="M21 3L3 10.53v.98l6.84 2.65L12.48 21h.98L21 3z" Fill="#A0A0AA" Aspect="Uniform" WidthRequest="12" HeightRequest="12" VerticalOptions="Center" />
+                                                    <Label Text="{Binding Distancia}" FontFamily="PoppinsRegular" FontSize="11" TextColor="#A0A0AA" VerticalOptions="Center" />
+                                                </HorizontalStackLayout>
+                                            </HorizontalStackLayout>
+                                        </VerticalStackLayout>
+                                        <Grid ColumnDefinitions="*, Auto" VerticalOptions="End">
+                                            <Border Grid.Column="0" BackgroundColor="#2A2A40" StrokeThickness="0" StrokeShape="RoundRectangle 6" Padding="8,4" HorizontalOptions="Start" VerticalOptions="Center">
+                                                <Label Text="{Binding Categoria}" FontFamily="PoppinsBold" TextColor="#7D7AFF" FontSize="9" FontAttributes="Bold" TextTransform="Uppercase" CharacterSpacing="1" />
+                                            </Border>
+                                            <Label Grid.Column="1" Text="{Binding Precio}" FontFamily="PoppinsBold" TextColor="White" FontSize="14" FontAttributes="Bold" VerticalOptions="Center" />
+                                        </Grid>
+                                    </StackLayout>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <Button Grid.Row="0" Text="+" FontFamily="PoppinsBold" FontSize="34" TextColor="White" BackgroundColor="#5E5CE6" CornerRadius="16" WidthRequest="56" HeightRequest="56" HorizontalOptions="End" VerticalOptions="End" Margin="0,0,20,20" Clicked="OnCrearEventoClicked">
+            <Button.Shadow>
+                <Shadow Brush="Black" Offset="0,6" Opacity="0.4" />
+            </Button.Shadow>
+        </Button>
+
+        <Border Grid.Row="1" BackgroundColor="#1E1E2A" StrokeThickness="0" StrokeShape="RoundRectangle 25,25,0,0" HeightRequest="65" Margin="0">
+            <Border.Shadow>
+                <Shadow Brush="Black" Offset="0,-5" Opacity="0.2" />
+            </Border.Shadow>
+            <Grid ColumnDefinitions="*,*,*,*">
+
+                <Grid Grid.Column="0" BackgroundColor="Transparent">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnTabTapped" CommandParameter="home" />
+                    </Grid.GestureRecognizers>
+                    <Path x:Name="IconoHome" Data="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" Fill="#5E5CE6" Aspect="Uniform" WidthRequest="24" HeightRequest="24" HorizontalOptions="Center" VerticalOptions="Center" Margin="0,-5,0,0" />
+                    <Ellipse x:Name="PuntoHome" Fill="#5E5CE6" WidthRequest="5" HeightRequest="5" HorizontalOptions="Center" VerticalOptions="End" Margin="0,0,0,10" IsVisible="True" />
+                </Grid>
+
+                <Grid Grid.Column="1" BackgroundColor="Transparent">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnTabTapped" CommandParameter="favorites" />
+                    </Grid.GestureRecognizers>
+                    <Path x:Name="IconoFav" Data="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" Fill="#707080" Aspect="Uniform" WidthRequest="22" HeightRequest="22" HorizontalOptions="Center" VerticalOptions="Center" Margin="0,-5,0,0"/>
+                    <Ellipse x:Name="PuntoFav" Fill="#5E5CE6" WidthRequest="5" HeightRequest="5" HorizontalOptions="Center" VerticalOptions="End" Margin="0,0,0,10" IsVisible="False" />
+                </Grid>
+
+                <Grid Grid.Column="2" BackgroundColor="Transparent">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnTabTapped" CommandParameter="pending" />
+                    </Grid.GestureRecognizers>
+                    <Path x:Name="IconoPend" Data="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z" Fill="#707080" Aspect="Uniform" WidthRequest="22" HeightRequest="22" HorizontalOptions="Center" VerticalOptions="Center" Margin="0,-5,0,0" />
+                    <Ellipse x:Name="PuntoPend" Fill="#5E5CE6" WidthRequest="5" HeightRequest="5" HorizontalOptions="Center" VerticalOptions="End" Margin="0,0,0,10" IsVisible="False" />
+                </Grid>
+
+                <Grid Grid.Column="3" BackgroundColor="Transparent">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnTabTapped" CommandParameter="account" />
+                    </Grid.GestureRecognizers>
+                    <Path x:Name="IconoCuenta" Data="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" Fill="#707080" Aspect="Uniform" WidthRequest="22" HeightRequest="22" HorizontalOptions="Center" VerticalOptions="Center" Margin="0,-5,0,0"/>
+                </Grid>
+
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>
